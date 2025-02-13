@@ -65,6 +65,7 @@ class Surface:
                 mettre None si on utilise la définitions 3 points
         point_def: array
                 coord du point sur lequel se base le vecteur normal
+                mettre None si on utilise la définitions 3 points
         SORTIE:
         vecteur_normal: array
                 vecteur normal au plan de norme 1
@@ -119,14 +120,7 @@ class Surface:
             arrray contenant les coord dans l'espace des points du plan
 
         """
-        # # définition de deux vecteurs du plan étudié
-        # u = np.array([1, 0, 0]) if abs(normal[0]) < abs(normal[1]) else np.array([0, 1, 0])
-        # v = np.cross(normal, u)
-        # u = np.cross(v, normal)
-        
-        # #on norme
-        # u /= np.linalg.norm(u)
-        # v /= np.linalg.norm(v)
+    
         
         # u et v deux vecteurs normés du plan
         u=self.vecteur1
