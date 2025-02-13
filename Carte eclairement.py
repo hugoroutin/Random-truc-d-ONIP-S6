@@ -31,7 +31,7 @@ class Source:
         self.zeta=zeta
         self.name=name
         
-    def intensity(self, angle, delta, I0):
+    def intensity(self, angle):
         """
         PARAMS:
         I0 : float
@@ -45,7 +45,7 @@ class Source:
         intensity: float
                 l'intensité (scoop)
         """
-        intensity=I0 * np.exp(- (4 * np.log(2)) * (angle / Delta) ** 2)
+        intensity=self.I0 * np.exp(- (4 * np.log(2)) * (angle / self.delta) ** 2)
         return intensity
     
     def illumination(self, angle, distance):
@@ -61,6 +61,8 @@ class Surface:
         SORTIE:
         vecteur_normal: array
                 vecteur normal au plan de norme 1
+        vecteur1, vecteur2: arrays
+                deux vecteurs normés appartenant au plan
         """
         A, B, C = map(np.array, plan)
         
@@ -74,9 +76,73 @@ class Surface:
             normal = normal / norme
         else: 
             raise Exception('Les points donnés ne forment pas un plan')
+            
+        self.vecteur1=np.linalg.norm(AB)
+        self.vecteur2=np.linalg.norm(AC)
         self.vecteur_normal=normal
         
-    
+    def get_carte_coord(self, intervalle, taille=100):
+        """
+        Parameters
+        ----------
+        taille : int
+            taille du array carré renvoyé
+        intervalle : float
+            intervalle entre chaque point considéré
+
+        Returns
+        carte_coord: array
+            arrray contenant les coord dans l'espace des points du plan
+
+        """
+        # # définition de deux vecteurs du plan étudié
+        # u = np.array([1, 0, 0]) if abs(normal[0]) < abs(normal[1]) else np.array([0, 1, 0])
+        # v = np.cross(normal, u)
+        # u = np.cross(v, normal)
+        
+        # #on norme
+        # u /= np.linalg.norm(u)
+        # v /= np.linalg.norm(v)
+        
+        # u et v deux vecteurs normés du plan
+        u=self.vecteur1
+        v=self.vecteur2
+        
+        # Création des points du plan
+        indices = np.linspace(-taille//2, taille//2, taille) * intervalle
+        x, y = np.meshgrid(indices, indices)
+        points = np.zeros((taille, taille, 3))
+        
+        for i in range(taille):
+            for j in range(taille):
+                points[i, j] = point_ancrage + x[i, j] * u + y[i, j] * v
+        
+        return carte_coord
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
