@@ -49,11 +49,12 @@ class Source:
         return intensity
     
     def illumination(self, angle, distance):
+        return None
         
         
         
 class Surface:
-    def __init__(self, point_def=None v_normal=None, coord_points_plan= None, nom='Gazon'):
+    def __init__(self, point_def=None, v_normal=None, coord_points_plan= None, nom='Gazon'):
         """
         PARAMS:
         plan : Tuples de tuples de 3 floats
@@ -77,9 +78,21 @@ class Surface:
             AC = C - A
             
             normal = np.cross(AB, AC)
+            self.vecteur1=np.linalg.norm(AB)
+            self.vecteur2=np.linalg.norm(AC)
             
         if (v_normal is not None) and (point_def is not None):
             normal=v_normal+point_def
+            
+            u = np.array([1, 0, 0]) if abs(normal[0]) < abs(normal[1]) else np.array([0, 1, 0])
+            v = np.cross(normal, u)
+            u = np.cross(v, normal)
+            
+            #on norme
+            u /= np.linalg.norm(u)
+            v /= np.linalg.norm(v)
+            self.vecteur1=u
+            self.vecteur2=v
             
         
         
@@ -89,8 +102,7 @@ class Surface:
         else: 
             raise Exception('Les points donnés ne forment pas un plan')
             
-        self.vecteur1=np.linalg.norm(AB)
-        self.vecteur2=np.linalg.norm(AC)
+        
         self.vecteur_normal=normal
         
     def get_carte_coord(self, intervalle, taille=100):
