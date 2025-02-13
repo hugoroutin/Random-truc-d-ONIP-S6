@@ -106,12 +106,13 @@ class Surface:
             self.vecteur1=u
             self.vecteur2=v
             
-        
-        
-        
+            norme_normal = np.linalg.norm(normal)
+            if norme_normal==0:
+                raise Exception('Les points donnés ne forment pas un plan')
+            normal = normal / norme_normal
+            self.vecteur_normal=normal
             
         
-        self.vecteur_normal=normal
         
     def get_carte_coord(self, intervalle, taille=100):
         """
