@@ -53,23 +53,35 @@ class Source:
         
         
 class Surface:
-    def __init__(self, plan, nom='Gazon'):
+    def __init__(self, point_def=None v_normal=None, coord_points_plan= None, nom='Gazon'):
         """
         PARAMS:
         plan : Tuples de tuples de 3 floats
-                coordonnées de 3 points sur lesquels seront défini la surface de travail
+                coordonnées de 3 points sur lesquels seront défini la surface de travail 
+                mettre None si on utilise la définition par vecteur normal
+        v_normal: array
+                vecteur normal au plan passant par point_def
+                mettre None si on utilise la définitions 3 points
+        point_def: array
+                coord du point sur lequel se base le vecteur normal
         SORTIE:
         vecteur_normal: array
                 vecteur normal au plan de norme 1
         vecteur1, vecteur2: arrays
                 deux vecteurs normés appartenant au plan
         """
-        A, B, C = map(np.array, plan)
+        if coord_points_plan is not None:
+            A, B, C = map(np.array, coord_points_plan)
+            
+            AB = B - A
+            AC = C - A
+            
+            normal = np.cross(AB, AC)
+            
+        if (v_normal is not None) and (point_def is not None):
+            normal=v_normal+point_def
+            
         
-        AB = B - A
-        AC = C - A
-        
-        normal = np.cross(AB, AC)
         
         norme = np.linalg.norm(normal)
         if norme != 0:
