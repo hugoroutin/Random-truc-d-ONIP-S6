@@ -77,10 +77,21 @@ class Surface:
             
             AB = B - A
             AC = C - A
+            BC = C - B
+            
             
             normal = np.cross(AB, AC)
-            self.vecteur1=np.linalg.norm(AB)
-            self.vecteur2=np.linalg.norm(AC)
+            norme_normal = np.linalg.norm(normal)
+            norme_AB=np.linalg.norm(AB)
+            norme_AC=np.linalg.norm(AC)
+            norme_BC=np.linalg.norm(BC)
+            
+            if norme_normal==0 or norme_AB==0 or norme_AC==0 or norme_BC==0 :
+                raise Exception('Les points donnés ne forment pas un plan')
+            normal = normal / norme_normal
+            self.vecteur_normal=normal
+            self.vecteur1=norme_AB
+            self.vecteur2=norme_AC
             
         if (v_normal is not None) and (point_def is not None):
             normal=v_normal+point_def
@@ -97,11 +108,7 @@ class Surface:
             
         
         
-        norme = np.linalg.norm(normal)
-        if norme != 0:
-            normal = normal / norme
-        else: 
-            raise Exception('Les points donnés ne forment pas un plan')
+        
             
         
         self.vecteur_normal=normal
