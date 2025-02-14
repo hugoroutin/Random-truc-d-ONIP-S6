@@ -32,8 +32,7 @@ class Source_blanche:
         self.zeta=zeta
         self.name=name
         norme=np.linalg.norm(np.array(vecteur_direction))
-        print(vecteur_direction)
-        print(norme)
+        
         if norme==0:
             raise Exception('le vecteur direction est de norme 0')
         vecteur_direction /= norme

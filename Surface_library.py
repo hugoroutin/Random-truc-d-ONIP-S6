@@ -58,8 +58,7 @@ class Surface_plane:
             
             u = np.array([1, 0, 0]) if abs(normal[0]) < abs(normal[1]) else np.array([0, 1, 0])
             
-            print(u)
-            print(normal)
+            
             v = np.cross(normal, u)
             u = np.cross(v, normal)
             
