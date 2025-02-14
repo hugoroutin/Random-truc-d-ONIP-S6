@@ -10,12 +10,12 @@ from Surface_library import Surface_plane
 from Source_library import Source
 import matplotlib.pyplot as plt
 
-source1=Source(0, 0, 5, 10, 1, 0, 0, [0,0,-1])
-source2=Source(2, 2, 5, 10, 1, 0, 0, [0,0,-1])
+source1=Source(0, 0, 20, 10, 1, 0, 0, [0,0,-1])
+source2=Source(10, 10, 10, 10, 1, 0, 0, [0,0,-1])
 liste_sources=[source1,source2]
 
 surface=Surface_plane(point_def=[0,0,0],v_normal=[0,0,1])
-carte_coord_surface=surface.get_carte_coord(0.05,10)
+carte_coord_surface=surface.get_carte_coord(0.1,100)
 
 a,b,rest=np.shape(carte_coord_surface)
 
@@ -41,16 +41,16 @@ for k in liste_sources:
             
             psi=np.abs(np.arccos(np.dot(SP_norme,np.transpose(surface.vecteur_normal))))
             
-            E=I*np.cos(psi)/(norme_SP**2)
+            E=np.abs(I*np.cos(psi)/(norme_SP**2))
             
             carte_E[i,j]=E
             
             
-    carte_eclairement=np.array(carte_eclairement)+np.array(carte_E)
+    carte_eclairement=np.array(carte_eclairement)+np.array(carte_E)[...,0]
     
 print(carte_eclairement)
 
-plt.imshow(carte_eclairement, cmap='gray', interpolation='nearest')
+plt.imshow(carte_eclairement, cmap='jet') #, interpolation='nearest'
 plt.axis('off')  # Masquer les axes
 plt.show()
             
