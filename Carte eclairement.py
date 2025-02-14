@@ -10,9 +10,9 @@ from Surface_library import Surface_plane
 from Source_library import Source
 import matplotlib.pyplot as plt
 
-source1=Source(0, 0, 20, 10, 1, 0, 0, [0,0,-1])
-source2=Source(10, 10, 10, 10, 1, 0, 0, [0,0,-1])
-liste_sources=[source1,source2]
+source1=Source(3, 0, 20, 5, 1, 0, 0, [0,0,-1])
+#source2=Source(-5, -5, 10, 10, 1, 0, 0, [0,0,-1])
+liste_sources=[source1]
 
 surface=Surface_plane(point_def=[0,0,0],v_normal=[0,0,1])
 carte_coord_surface=surface.get_carte_coord(0.1,100)
