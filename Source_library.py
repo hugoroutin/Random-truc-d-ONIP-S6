@@ -8,7 +8,7 @@ Created on Fri Feb 14 08:29:51 2025
 import numpy as np
 
 class Source:
-    def __init__(self, x, y, z, I0, delta, theta, zeta, name='René'):
+    def __init__(self, x, y, z, I0, delta, theta, zeta, vecteur_direction, name='René'):
         """
         PARAMS:
         x, y, z : floats 
@@ -21,6 +21,7 @@ class Source:
                 je sais pas encore
         zeta: float
                 je sais pas encore   
+        direc
         """
         self.x=x
         self.y=y
@@ -30,6 +31,11 @@ class Source:
         self.theta=theta
         self.zeta=zeta
         self.name=name
+        norme=np.linalg.norm(vecteur_direction)
+        if norme==0:
+            raise Exception('le vecteur direction est de norme 0')
+        vecteur_direction /= norme
+        self.vecteur_direction=vecteur_direction
         
     def intensity(self, angle):
         """
@@ -39,7 +45,7 @@ class Source:
         delta: float
                  je sais pas encore
         angle: float
-                je sais pas encore
+                paramètre décrivant la distance anglulaire au vecteur normal de la source
                 
         RETURNS:
         intensity: float
