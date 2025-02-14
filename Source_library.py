@@ -7,8 +7,8 @@ Created on Fri Feb 14 08:29:51 2025
 
 import numpy as np
 
-class Source:
-    def __init__(self, x, y, z, I0, delta, theta, zeta, vecteur_direction, name='René'):
+class Source_blanche:
+    def __init__(self, x, y, z, I0, delta, vecteur_direction,theta=None, zeta=None, name='René'):
         """
         PARAMS:
         x, y, z : floats 
@@ -31,7 +31,9 @@ class Source:
         self.theta=theta
         self.zeta=zeta
         self.name=name
-        norme=np.linalg.norm(vecteur_direction)
+        norme=np.linalg.norm(np.array(vecteur_direction))
+        print(vecteur_direction)
+        print(norme)
         if norme==0:
             raise Exception('le vecteur direction est de norme 0')
         vecteur_direction /= norme

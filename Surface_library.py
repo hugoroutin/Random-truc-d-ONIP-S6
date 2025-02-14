@@ -35,6 +35,8 @@ class Surface_plane:
             
             normal = np.cross(AB, AC)
             print('normal eqg: '+str(normal))
+            
+            
             norme_normal = np.linalg.norm(normal)
             norme_AB=np.linalg.norm(AB)
             norme_AC=np.linalg.norm(AC)
@@ -43,6 +45,7 @@ class Surface_plane:
             if norme_normal==0 or norme_AB==0 or norme_AC==0 or norme_BC==0 :
                 raise Exception('Les points donnés ne forment pas un plan')
             normal = normal / norme_normal
+            
             self.vecteur_normal=normal
             self.vecteur1=norme_AB
             self.vecteur2=norme_AC
