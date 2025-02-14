@@ -37,6 +37,8 @@ class Source:
         vecteur_direction /= norme
         self.vecteur_direction=vecteur_direction
         
+        
+        
     def intensity(self, angle):
         """
         PARAMS:

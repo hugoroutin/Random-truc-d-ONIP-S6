@@ -49,7 +49,11 @@ class Surface_plane:
         if (v_normal is not None) and (point_def is not None):
             normal=v_normal+point_def
             
+            
             u = np.array([1, 0, 0]) if abs(normal[0]) < abs(normal[1]) else np.array([0, 1, 0])
+            
+            print(u)
+            print(normal)
             v = np.cross(normal, u)
             u = np.cross(v, normal)
             
@@ -59,11 +63,13 @@ class Surface_plane:
             self.vecteur1=u
             self.vecteur2=v
             
+            
             norme_normal = np.linalg.norm(normal)
             if norme_normal==0:
                 raise Exception('Les points donnés ne forment pas un plan')
             normal = normal / norme_normal
             self.vecteur_normal=normal
+        self.point_def=point_def
             
         
         
@@ -94,6 +100,24 @@ class Surface_plane:
         
         for i in range(taille):
             for j in range(taille):
-                points[i, j] = point_ancrage + x[i, j] * u + y[i, j] * v
+                points[i, j] = self.point_def + x[i, j] * u + y[i, j] * v
         
-        return carte_coord
+        return points
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

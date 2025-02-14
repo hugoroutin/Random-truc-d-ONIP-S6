@@ -8,6 +8,7 @@ Created on Thu Feb 13 20:35:27 2025
 import numpy as np
 from Surface_library import Surface_plane
 from Source_library import Source
+import matplotlib.pyplot as plt
 
 source1=Source(0, 0, 5, 10, 1, 0, 0, [0,0,-1])
 source2=Source(2, 2, 5, 10, 1, 0, 0, [0,0,-1])
@@ -19,24 +20,39 @@ carte_coord_surface=surface.get_carte_coord(0.05)
 a,b=np.shape(carte_coord_surface)
 
 
-for i in liste_sources:
-    copy_carte_coord=carte_coord_surface.copy()
+carte_eclairement=np.zeros(np.shape(carte_coord_surface))
+
+for k in liste_sources:
+    carte_E=carte_coord_surface.copy()
     for i in range(a):
         for j in range(b):
-            point_P=carte_coord_surface[i,j]
-            point_S=[i.x,i.y,i.z]
+            point_P=carte_E[i,j]
+            point_S=[k.x,k.y,k.z]
             SP=point_P-point_S
             norme_SP=np.linalg.norm(SP)
             
             if norme_SP==0:
                 raise Exception('la source est comprise dans le plan')
                 
-            SP_normé/=norme_SP
+            SP_norme=SP/ norme_SP
+            
+            alpha=np.abs(np.arcos(np.dot(SP_norme,np.transpose(k.vecteur_direction))))
+            I=k.intensity(alpha)
+            
+            psi=np.abs(np.arcos(np.dot(SP_norme,np.transpose(surface.vecteur_normal))))
+            
+            E=I*np.cos(psi)/(norme_SP**2)
+            
+            carte_E[i,j]=E
             
             
-            
-            
-            
+    carte_eclairement=carte_eclairement+carte_E
+    
+    
+
+plt.imshow(carte_eclairement, cmap='jet', interpolation='nearest')
+plt.axis('off')  # Masquer les axes
+plt.show()
             
             
     
