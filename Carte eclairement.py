@@ -15,12 +15,12 @@ source2=Source(2, 2, 5, 10, 1, 0, 0, [0,0,-1])
 liste_sources=[source1,source2]
 
 surface=Surface_plane(point_def=[0,0,0],v_normal=[0,0,1])
-carte_coord_surface=surface.get_carte_coord(0.05)
+carte_coord_surface=surface.get_carte_coord(0.05,10)
 
-a,b=np.shape(carte_coord_surface)
+a,b,rest=np.shape(carte_coord_surface)
 
 
-carte_eclairement=np.zeros(np.shape(carte_coord_surface))
+carte_eclairement=np.zeros([a,b])
 
 for k in liste_sources:
     carte_E=carte_coord_surface.copy()
@@ -36,21 +36,21 @@ for k in liste_sources:
                 
             SP_norme=SP/ norme_SP
             
-            alpha=np.abs(np.arcos(np.dot(SP_norme,np.transpose(k.vecteur_direction))))
+            alpha=np.abs(np.arccos(np.dot(SP_norme,np.transpose(k.vecteur_direction))))
             I=k.intensity(alpha)
             
-            psi=np.abs(np.arcos(np.dot(SP_norme,np.transpose(surface.vecteur_normal))))
+            psi=np.abs(np.arccos(np.dot(SP_norme,np.transpose(surface.vecteur_normal))))
             
             E=I*np.cos(psi)/(norme_SP**2)
             
             carte_E[i,j]=E
             
             
-    carte_eclairement=carte_eclairement+carte_E
+    carte_eclairement=np.array(carte_eclairement)+np.array(carte_E)
     
-    
+print(carte_eclairement)
 
-plt.imshow(carte_eclairement, cmap='jet', interpolation='nearest')
+plt.imshow(carte_eclairement, cmap='gray', interpolation='nearest')
 plt.axis('off')  # Masquer les axes
 plt.show()
             

@@ -34,6 +34,7 @@ class Surface_plane:
             
             
             normal = np.cross(AB, AC)
+            print('normal eqg: '+str(normal))
             norme_normal = np.linalg.norm(normal)
             norme_AB=np.linalg.norm(AB)
             norme_AC=np.linalg.norm(AC)
@@ -47,7 +48,9 @@ class Surface_plane:
             self.vecteur2=norme_AC
             
         if (v_normal is not None) and (point_def is not None):
-            normal=v_normal+point_def
+            
+            normal=np.array(v_normal) + np.array(point_def)
+            print('normal'+str(normal))
             
             
             u = np.array([1, 0, 0]) if abs(normal[0]) < abs(normal[1]) else np.array([0, 1, 0])
@@ -58,8 +61,8 @@ class Surface_plane:
             u = np.cross(v, normal)
             
             #on norme
-            u /= np.linalg.norm(u)
-            v /= np.linalg.norm(v)
+            u = u/np.linalg.norm(u)
+            v =v/ np.linalg.norm(v)
             self.vecteur1=u
             self.vecteur2=v
             
