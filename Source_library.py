@@ -58,5 +58,19 @@ class Source_blanche:
         return intensity
     
     def illumination(self, angle, distance):
+        """
+
+        Parameters
+        ----------
+        angle : TYPE
+            DESCRIPTION.
+        distance : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         return None
         
