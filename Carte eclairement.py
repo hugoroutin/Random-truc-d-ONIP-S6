@@ -12,11 +12,12 @@ import matplotlib.pyplot as plt
 
 source1=Source_blanche(0, 0, 5, 5, 1,  [0,0,-1])
 source2=Source_blanche(0, 8, 5, 5, 1,  [0,0,-1])
-source5=Source_blanche(2, 4, 5, 30, 1,  [-7,0,-1])
+source5=Source_blanche(2, 4, 5, 30, 1,  [-4,0,-1])
 
 liste_sources=[source1 , source2,  source5]
 
 surface=Surface_plane(point_def=[0,0,0],v_normal=[0,0,1])
+
 carte_coord_surface=surface.get_carte_coord(0.5,100)
 
 a,b,rest=np.shape(carte_coord_surface)
@@ -55,43 +56,3 @@ print(carte_eclairement)
 plt.imshow(carte_eclairement, cmap='jet') #, interpolation='nearest'
 plt.axis('off')  # Masquer les axes
 plt.show()
-            
-            
-    
-    
-    
-    
-    
-
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
